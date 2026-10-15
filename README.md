@@ -264,4 +264,10 @@ run meaningfully in the Simulator).
 ## Team / acknowledgments
 
 Built by **Team Gradient Descent** for **Smart India Hackathon 2026**,
-Problem Statement **SIH26052**.
+Problem Statement **SIH26052**, including
+[Arnav Chaturvedi](https://github.com/Arnav-3012) and
+[Krish Viramgama](https://github.com/figureitoutkrish).
+
+The team's original repository is
+[Arnav-3012/ai-ml-based-active-noise-cancellation](https://github.com/Arnav-3012/ai-ml-based-active-noise-cancellation);
+this copy keeps its full commit history.
