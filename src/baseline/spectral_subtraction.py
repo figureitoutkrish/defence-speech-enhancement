@@ -35,7 +35,7 @@ Algorithm, per pair:
      important than magnitude errors at these SNRs) and inverse-STFT back
      to a waveform.
 
-I/O goes through `soundfile` only (see context.md: torchaudio.load/save is
+I/O goes through `soundfile` only (see the development log: torchaudio.load/save is
 not used in this project due to the torchcodec/libavutil linking issue
 found in Phase 0).
 

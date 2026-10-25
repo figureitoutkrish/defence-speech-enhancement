@@ -82,7 +82,7 @@ model or device change.
 `AudioRecorder` (via `AVAudioRecorder`, not `AVAudioEngine` — deliberately
 chosen because this app only needs "record to a file, then read it back
 once," not live streaming access, and real-time streaming inference is
-explicitly out of scope per `context.md`) records directly at 16kHz mono
+explicitly out of scope per the development log) records directly at 16kHz mono
 Float32, matching the model's input format exactly with no conversion step
 needed. `ModelRunner.process(rawSamples:)` reuses the *same* shared model
 instance and the *same* `fitToFixedLength` fit-to-64000 logic Stage 1

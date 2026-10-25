@@ -50,7 +50,7 @@ product. The visual language is built around that:
 
 This file reads ONLY already-computed CSVs/wavs under results/ and
 data/processed/ — it does not run training, inference, or evaluation
-itself (per CLAUDE.md rule 5's 2026-09-12 exception).
+itself (a deliberate exception to the project's rules, made on 2026-09-12).
 =============================================================================
 """
 
@@ -61,7 +61,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 # -----------------------------------------------------------------------
-# Paths & constants (real, locked numbers — see logs.md Phase 5b entries
+# Paths & constants (real, locked numbers — see the development log Phase 5b entries
 # and the on-device Stage 1/2 verification reports for provenance)
 # -----------------------------------------------------------------------
 

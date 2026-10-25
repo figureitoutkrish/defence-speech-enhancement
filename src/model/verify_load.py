@@ -5,7 +5,7 @@ data/processed/test/ via the test manifest (not a hardcoded path), runs it
 through the model in inference mode (no gradient, no training), confirms
 output shape matches input shape, and times the single inference call as a
 sanity number (not a rigorous warm/cold benchmark -- that was already
-verified separately per context.md).
+verified separately per the development log).
 
 Does NOT train, does NOT compute loss/optimizer state -- inference only.
 

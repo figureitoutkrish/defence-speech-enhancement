@@ -3,7 +3,7 @@
 This document explains, from first principles up to expert depth, how fine-tuning
 actually worked in this project — not as a generic ML tutorial, but grounded
 entirely in this repo's real files, real config values, and real numbers from
-`context.md` and `logs.md`. Every number here is either quoted directly from
+the development log. Every number here is either quoted directly from
 those files or from `configs/finetune.yaml` / `src/model/finetune.py`. Nothing
 is invented or approximated for narrative convenience.
 
@@ -36,7 +36,7 @@ task is called **fine-tuning**.
 experienced" model: 18,867,937 parameters (the exact locked count from
 `configs/finetune.yaml['model']['expected']`, verified in Phase 3a — not the
 rounded "~18.9M" figure some documents use casually), pretrained on general
-noisy speech. CLAUDE.md rule 6 makes this a hard constraint for the project:
+noisy speech. Project rule 6 makes this a hard constraint for the project:
 **no training from scratch, ever** — only transfer learning on top of dns48.
 
 ### 📐 The math: why 3e-5 and not 3e-4?
@@ -241,7 +241,7 @@ sample-by-sample L1 distance while sounding very differently "textured" —
 e.g. one crisp, one muffled). STFT loss alone, on the other hand, can miss
 fine time-domain alignment. Combining both pushes the model to match on
 *both* axes at once — this project locked this choice explicitly in
-`context.md`: "**L1 + multi-resolution STFT loss**."
+the development log: "**L1 + multi-resolution STFT loss**."
 
 ### 📐 The math — L1 loss
 
@@ -826,7 +826,7 @@ ratio by a factor of `10^(20/10) = 100x`. That is an extremely aggressive
 bar for a *single* input clip drawn from the hardest end of this project's
 own test distribution — and it's not a hypothetical edge case: by
 construction, roughly a quarter of the test set sits in the −5 to 0dB bucket
-(83 of 299 test pairs, per the per-SNR-bucket table in `logs.md`'s v1-vs-v5
+(83 of 299 test pairs, per the per-SNR-bucket table in the development log's v1-vs-v5
 comparison). For those pairs specifically, reaching an *absolute* 15dB
 output would require recovering speech from a signal where noise started
 out over 3x louder than speech, well past what "impossible to fully
@@ -856,15 +856,14 @@ absolute output-SNR threshold conflates.
 **This project's real numbers support the honest reading, not a flattering
 one:** v5's overall SNR improvement over the unprocessed floor is `8.75 −
 0.47 = +8.28dB` (using the noisy-floor's own overall SNR of 0.47dB from
-`context.md`'s evaluation table) — a large, real, consistently-observed
+the development log's evaluation table) — a large, real, consistently-observed
 improvement across every category and every SNR bucket, reported honestly
 alongside the fact that the absolute >15dB target was never reached by any
 of the four fine-tuned versions.
 
 ### 🔗 The connection
 
-This same absolute-vs-relative framing issue is why `context.md` and
-`logs.md` consistently report finetuned-vs-baseline deltas (SNR: 1.84→8.67dB,
+This same absolute-vs-relative framing issue is why the development log consistently reports finetuned-vs-baseline deltas (SNR: 1.84→8.67dB,
 **+6.83dB**; STOI: 0.592→0.662, **+0.070**; PESQ: 1.292→1.788, **+0.496**)
 side-by-side with the honest absolute PS-target assessment, rather than
 letting one framing stand in for the other.

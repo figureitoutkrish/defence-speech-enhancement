@@ -45,9 +45,9 @@ distinction and how the model works is in [how_it_works.md](how_it_works.md).
 ## Results
 
 All numbers below are from the final locked model (**v5**), evaluated on a
-299-pair, speaker-disjoint held-out test split. Full methodology and
-per-category/per-SNR-bucket tables are in [context.md](context.md) and
-[logs.md](logs.md).
+299-pair, speaker-disjoint held-out test split. Per-category and
+per-SNR-bucket tables are in [`results/`](results/), and the full methodology
+is in the team's [development log](https://github.com/Arnav-3012/ai-ml-based-active-noise-cancellation/blob/main/logs.md).
 
 ### Overall (test split, n=299)
 
@@ -89,7 +89,7 @@ the unprocessed signal and a classical baseline, across every metric and
 every noise category, achieved through four methodologically-motivated
 iterations (each driven by a concrete diagnosis of the previous version's
 failure mode, not blind hyperparameter search — see
-[logs.md](logs.md)). Closing the remaining gap to the PS's absolute targets
+[docs/phase3_training_deep_dive.md](docs/phase3_training_deep_dive.md)). Closing the remaining gap to the PS's absolute targets
 was explicitly scoped out as further work once v5 was locked, not attempted
 or claimed here.
 
@@ -110,7 +110,7 @@ implementation (see [On-device demo](#on-device-demo) below).
 ## Architecture
 
 **dns48** (Facebook Research `denoiser`), fine-tuned via transfer learning —
-never trained from scratch, per this project's own rules.
+never trained from scratch, by design.
 
 - **18,867,937 parameters** (exact count, not rounded).
 - Encoder (5 layers) → 2-layer LSTM bottleneck (hidden size 768) → decoder
@@ -147,7 +147,7 @@ M4 Pro, with an explicit, non-silent CPU fallback if MPS is unavailable.
   curriculum learning + silence-collapse penalty → dynamic per-step mixing
   + reactive LR), not a blind hyperparameter sweep. v5 is the final, locked
   model. Full iteration-by-iteration story: [docs/phase3_training_deep_dive.md](docs/phase3_training_deep_dive.md)
-  and the corresponding entries in [logs.md](logs.md).
+  and the team's [development log](https://github.com/Arnav-3012/ai-ml-based-active-noise-cancellation/blob/main/logs.md).
 - **Export/quantization pipeline**: PyTorch → ONNX (verified zero export
   drift, isolated from a fixed-length-crop confound) → Core ML
   (`mlprogram`, iOS15 target, verified zero drift vs. ONNX at fp32) → int8
@@ -159,7 +159,8 @@ M4 Pro, with an explicit, non-silent CPU fallback if MPS is unavailable.
   including two real conversion failures that were diagnosed and fixed
   (ONNX-to-Core-ML has no direct converter path in this coremltools
   version; an LSTM shape-tracing crash traced to Python-scalar shape reads
-  inside a traced graph) are in [logs.md](logs.md)'s Phase 5a/5b entries.
+  inside a traced graph) are in
+  [docs/export_quantization_deep_dive.md](docs/export_quantization_deep_dive.md).
 
 ## On-device demo
 
@@ -194,8 +195,8 @@ I/O, continuous Core ML invocation) was out of scope for this build.
 ├── docs/phase3_training_deep_dive.md  # full v1→v5 training iteration story
 ├── notebooks/                # scratch/exploration only, never imported by src/
 ├── how_it_works.md           # plain-language explainer of the whole system
-├── context.md                # current-state snapshot (overwritten each session)
-├── logs.md                   # append-only project history / audit trail
+├── dataset.md                # every training setting in finetune.yaml, explained
+├── phase2_baseline_and_eval.md  # the classical baseline and the metrics, explained
 └── requirements.txt
 ```
 
@@ -206,7 +207,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Data pipeline (requires manually downloading the Kabealo gunshot dataset first — see info.md)
+# Data pipeline (download the Kabealo gunshot dataset by hand first, see below)
 python -m src.data.download
 python -m src.data.build_dataset
 
@@ -226,6 +227,11 @@ python -m src.export.to_onnx
 python -m src.export.to_coreml
 python -m src.export.quantize_coreml
 ```
+
+Datasets: LibriSpeech dev-clean, MUSAN and UrbanSound8K are fetched by
+`src.data.download`. The Kabealo gunshot dataset
+([Zenodo record 7004819](https://zenodo.org/records/7004819)) has to be
+downloaded by hand into `data/raw/gunshots/`.
 
 The Streamlit results dashboard (reads only already-computed files under
 `results/`, does not run training/inference itself):
@@ -264,10 +270,11 @@ run meaningfully in the Simulator).
 ## Team / acknowledgments
 
 Built by **Team Gradient Descent** for **Smart India Hackathon 2026**,
-Problem Statement **SIH26052**, including
-[Arnav Chaturvedi](https://github.com/Arnav-3012) and
-[Krish Viramgama](https://github.com/figureitoutkrish).
+Problem Statement **SIH26052**:
 
-The team's original repository is
-[Arnav-3012/ai-ml-based-active-noise-cancellation](https://github.com/Arnav-3012/ai-ml-based-active-noise-cancellation);
-this copy keeps its full commit history.
+- [Arnav Chaturvedi](https://github.com/Arnav-3012)
+- [Krish Viramgama](https://github.com/figureitoutkrish)
+- [Rushil](https://github.com/Rushil0700)
+
+The team's original repository, with the full development log, is
+[Arnav-3012/ai-ml-based-active-noise-cancellation](https://github.com/Arnav-3012/ai-ml-based-active-noise-cancellation).

@@ -14,3 +14,11 @@ __pycache__/
 *.pyc
 .DS_Store
 results/*.wav
+
+# AI assistant notes and editor settings stay local
+CLAUDE.md
+context.md
+logs.md
+plan.md
+info.md
+.vscode/

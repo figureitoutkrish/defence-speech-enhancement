@@ -10,7 +10,7 @@ loop, plateau-based early stopping, and best-val-loss checkpointing. Entry
 point: `python -m src.model.finetune --run` (see bottom of file for exact
 command). Epoch ceiling / batch size / early-stopping thresholds are all
 config-driven from `configs/finetune.yaml['training_run']` -- justification
-for each value is in that config section's comments and in logs.md's
+for each value is in that config section's comments and in the development log's
 Phase 3c ceiling entry, not repeated here.
 
 CRITICAL (carried over from 3b): this project's loss functions are
@@ -84,7 +84,7 @@ def compute_loss(
     stft_loss_fn: MultiResolutionSTFTLoss,
     cfg: dict,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-    """L1 + multi-resolution STFT loss, per context.md's locked loss choice.
+    """L1 + multi-resolution STFT loss, per the development log's locked loss choice.
 
     `output`/`clean` are [batch, samples] (2D) -- MultiResolutionSTFTLoss's
     forward() expects (B, T), confirmed via its docstring in
@@ -213,7 +213,7 @@ def train() -> None:
     """Phase 3c real training run: multi-epoch, validation loop, plateau
     early stopping, best-val-loss checkpointing. Config-driven from
     `configs/finetune.yaml['training_run']` -- see that section's comments
-    and logs.md's Phase 3c ceiling entry for the epoch-ceiling/batch-size
+    and the development log's Phase 3c ceiling entry for the epoch-ceiling/batch-size
     justification (not repeated here).
 
     If the epoch ceiling is hit without a clear plateau, this is reported
@@ -447,7 +447,7 @@ def train_v2() -> None:
     `results/finetune_training_log.csv` are never touched by this
     function.
 
-    Does NOT evaluate on the test set and does NOT append to logs.md --
+    Does NOT evaluate on the test set and does NOT append to the development log --
     per explicit instruction, that happens only after the user reports
     back the training curve and a decision is made on whether to run
     Phase 4 evaluation on this checkpoint.
@@ -786,7 +786,7 @@ def train_v4() -> None:
     curriculum sampler (make_curriculum_train_dataloader()) is only ever
     constructed for the train split, and only inside the per-epoch loop.
 
-    Does NOT evaluate on the test set and does NOT append to logs.md --
+    Does NOT evaluate on the test set and does NOT append to the development log --
     per explicit instruction, this happens only after the user reports back
     the training curve.
     """
@@ -1089,7 +1089,7 @@ def train_v5() -> None:
     explicit task instruction ("verify concretely and state it in the run
     banner, same standard as every prior phase").
 
-    Does NOT evaluate on the test set and does NOT append to logs.md --
+    Does NOT evaluate on the test set and does NOT append to the development log --
     per explicit instruction, this happens only after the user reports back
     the training curve and results are ready to write up.
     """

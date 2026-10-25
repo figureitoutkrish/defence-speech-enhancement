@@ -9,7 +9,7 @@ Verified directly: `denoiser.pretrained` imports only `.demucs` and `.utils`
 (checked its import lines in the installed package), so loading the
 checkpoint here does not touch either patched file -- confirmed, not assumed.
 
-Per CLAUDE.md rule 8: checks `torch.backends.mps.is_available()` and falls
+Per project rule 8: checks `torch.backends.mps.is_available()` and falls
 back to CPU with an explicit, visible warning -- never fails silently.
 
 Run standalone: `python -m src.model.load` from repo root (prints param
@@ -36,7 +36,7 @@ def load_config(path: str = CONFIG_PATH) -> dict:
 def get_device() -> torch.device:
     """Returns the MPS device if available, else CPU with a visible warning.
 
-    Per CLAUDE.md rule 8: never assume CUDA, never fail silently on missing
+    Per project rule 8: never assume CUDA, never fail silently on missing
     MPS -- an M4 Pro without MPS available is a real, visible problem, not a
     silently-tolerated fallback.
     """

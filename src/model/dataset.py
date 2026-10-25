@@ -3,7 +3,7 @@
 Reads `manifests/{train,val,test}.json` (written by `src/data/build_dataset.py`
 in Phase 1). Loads audio via `soundfile` only -- matching the Phase 0
 soundfile-only-for-I/O convention (`torchaudio.load`/`save` are not used
-anywhere in this project, per context.md).
+anywhere in this project, per the development log).
 
 Manifest clips have variable duration (verified in the Phase 3a follow-up:
 3.8s-32.3s across test-split files alone). To collate into a batch tensor,
@@ -61,7 +61,7 @@ class NoisyCleanDataset(Dataset):
                 f"real problem, not expected variation."
             )
         # soundfile returns [samples, channels]; Phase 1 output is mono
-        # PCM_16 (confirmed in context.md), so squeeze to 1D [samples].
+        # PCM_16 (confirmed in the development log), so squeeze to 1D [samples].
         return torch.from_numpy(data).transpose(0, 1).contiguous().squeeze(0)
 
     def __getitem__(self, index: int) -> tuple[torch.Tensor, torch.Tensor]:

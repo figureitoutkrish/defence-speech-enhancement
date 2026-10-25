@@ -5,7 +5,7 @@ locked v5 checkpoint (`checkpoints/dns48_finetuned_v5_best.pt`) became three
 shippable on-device artifacts (fp32, fp16, int8 `.mlpackage` files) — the
 real bugs hit along the way, the real verification numbers at every step,
 and the real engineering reasoning behind each precision decision. All
-numbers are quoted directly from `logs.md`'s Phase 5a/5b entries; nothing is
+numbers are quoted directly from the development log's Phase 5a/5b entries; nothing is
 approximated.
 
 ---
@@ -495,7 +495,7 @@ bottleneck between the 5-layer encoder and 5-layer decoder — exactly the
 component where recurrent error-compounding risk applies, on top of the
 5+5 feedforward conv layers and 2 downsample stages surrounding it. The
 fp16 delta result (Section 3, Step 3: SNR −0.2472dB, PESQ −0.0624, "the
-largest proportional hit of the three metrics," per `logs.md`) is
+largest proportional hit of the three metrics," per the development log) is
 **plausible given** exactly this mechanism: fp16 changes *runtime compute
 precision*, meaning every one of the LSTM's many sequential recurrent
 steps computes at reduced precision and feeds its own (now-degraded)

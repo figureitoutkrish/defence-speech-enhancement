@@ -1,6 +1,6 @@
 # configs/finetune.yaml
 # Single source of truth for all tunable values in the data pipeline (and,
-# later, fine-tuning). Per CLAUDE.md rule 1: no magic numbers in .py files —
+# later, fine-tuning). Project rule: no magic numbers in .py files —
 # everything tunable lives here and code reads from this file.
 
 seed: 42
@@ -243,7 +243,7 @@ training:
   # (gunshot/battlefield) without catastrophically forgetting what dns48
   # already learned on its original training distribution.
   learning_rate: 3.0e-5
-  # L1 + multi-resolution STFT loss weighting (locked in context.md
+  # L1 + multi-resolution STFT loss weighting (locked in the development log
   # "Loss (planned)" -- L1 + multi-resolution STFT). Weights kept equal
   # (1.0 each) for the 3b smoke test; rebalancing is a 3c tuning decision,
   # not assumed here.
@@ -407,7 +407,7 @@ loss_weights_v2:
 
 # --- v4: curriculum training + silence-collapse penalty ---
 # Diagnosis (v1 vs v2 vs data-gap analysis, all confirmed with real numbers
-# before this section was written -- see logs.md's v4 entry):
+# before this section was written -- see the development log's v4 entry):
 #   - v1 and v2 land at ~identical STOI/PESQ (~0.66/1.78) despite different
 #     LR/loss/oversampling configs -- neither lever from v2 moved the needle.
 #   - Failure mode is OVER-suppression (near-silence on speech), confirmed
@@ -583,8 +583,8 @@ loss_weights_v4:
   stft: 1.0
 
 # --- v5: dynamic (on-the-fly) mixing + expanded clean pool + reactive LR ---
-# Root cause (diagnosed with real numbers across v1/v2/v4, see logs.md/
-# context.md v5 diagnosis entries, not repeated here): v1/v2/v4 all plateau
+# Root cause (diagnosed with real numbers across v1/v2/v4, see the development log
+#  v5 diagnosis entries, not repeated here): v1/v2/v4 all plateau
 # at epoch 7-11 and land within ~0.005 STOI / ~0.06 PESQ of each other across
 # every SNR bucket, DESPITE structurally different LR schedules, loss
 # weighting, oversampling, and a curriculum ramp -- because the TRAINING SET

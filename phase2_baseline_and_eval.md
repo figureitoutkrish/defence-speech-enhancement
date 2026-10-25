@@ -232,7 +232,7 @@ one call — the direct inverse of `spec.abs()`/`torch.angle(spec)`.
 
 Every number that could have been a "magic number" (`n_fft`, `hop_length`,
 `noise_estimate_frames`, `alpha`, `beta`) is read from
-`configs/finetune.yaml` (`baseline.*` keys), per this repo's CLAUDE.md
+`configs/finetune.yaml` (`baseline.*` keys), per the project's rules
 rule 1.
 
 ---
@@ -484,7 +484,7 @@ one-metric illusion.*
   bug to hide.
 - The STFT machinery here (`torch.stft`/`torch.istft`) is conceptually the
   same operation the multi-resolution STFT loss (planned for fine-tuning,
-  see `context.md`) uses internally — understanding spectral subtraction's
+  see the development log) uses internally — understanding spectral subtraction's
   magnitude/phase split now makes that loss function's mechanics much less
   mysterious later.
 

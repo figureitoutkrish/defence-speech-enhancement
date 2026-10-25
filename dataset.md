@@ -167,8 +167,7 @@ target.
 and content diversity, small enough to download and process quickly on a
 laptop. The huge training subsets (hundreds of hours) would take far
 longer to download/process for no benefit at this project's scale — we're
-fine-tuning a pretrained model, not training from scratch (CLAUDE.md rule
-6), so we don't need millions of examples.
+fine-tuning a pretrained model, not training from scratch (project rule 6), so we don't need millions of examples.
 
 **Why `target_utterances_min: 2000` / `max: 2500`?** This is a sanity
 check the download script uses to confirm the download succeeded

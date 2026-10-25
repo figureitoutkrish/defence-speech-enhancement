@@ -7,7 +7,7 @@
 //  stops," which is exactly AVAudioRecorder's use case. AVAudioEngine is
 //  built for real-time streaming/tap access to live buffers, which this
 //  project explicitly does NOT need yet (real-time streaming inference is
-//  out of scope per context.md's "Explicitly out of scope" list) --
+//  out of scope per the development log's "Explicitly out of scope" list) --
 //  AVAudioEngine would be the right tool if/when a live-streaming Stage
 //  existed, not for this record-then-process flow.
 //

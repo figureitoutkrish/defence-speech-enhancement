@@ -77,7 +77,7 @@ def load_noise_pool(cfg: dict) -> dict:
     -- same source directories, same MUSAN sound-bible/free-sound ->
     stationary/general split convention. Duplicated here (not imported from
     build_dataset.py) because build_dataset.py's version is coupled to its
-    own module-level RAW_DIR constant and CLAUDE.md rule 7 keeps src/
+    own module-level RAW_DIR constant and project rule 7 keeps src/
     modules from depending on each other in ways that would make this
     module's noise pool implicitly track build_dataset.py's unrelated
     dataset-orchestration changes; the actual glob logic is identical and
