@@ -273,7 +273,7 @@ Built by **Team Gradient Descent** for **Smart India Hackathon 2026**,
 Problem Statement **SIH26052**:
 
 - [Arnav Chaturvedi](https://github.com/Arnav-3012)
-- [Krish Viramgama](https://github.com/figureitoutkrish)
+- [Krish Viramgama](https://github.com/figureitoutwithkrish)
 - [Rushil](https://github.com/Rushil0700)
 
 The team's original repository, with the full development log, is
